@@ -1,16 +1,7 @@
 
 package competition;
 
-import xbot.common.properties.PropertyManager;
 import xbot.common.wpi_extensions.BaseRobot;
-import xbot.common.wpi_extensions.XScheduler;
-import competition.commands.ExampleCommand;
-import competition.operatorinterface.OI;
-import competition.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The VM is configured to automatically run this class, and to call the
