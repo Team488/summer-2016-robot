@@ -3,12 +3,14 @@ package competition.subsystems.drive;
 import org.apache.log4j.Logger;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import xbot.common.injection.wpi_factories.WPIFactory;
 import xbot.common.properties.PropertyManager;
 import xbot.common.wpi_extensions.BaseSubsystem;
 import xbot.common.wpi_extensions.mechanism_wrappers.XSpeedController;
 
+@Singleton
 public class DriveSubsystem extends BaseSubsystem {
 	
     private static Logger log = Logger.getLogger(DriveSubsystem.class);

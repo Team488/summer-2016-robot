@@ -1,8 +1,8 @@
 
 package competition;
 
+import competition.operatorinterface.OperatorInterfaceCommandMap;
 import competition.subsystems.SubsystemDefaultCommandMap;
-
 import xbot.common.wpi_extensions.BaseRobot;
 
 /**
@@ -18,5 +18,6 @@ public class Robot extends BaseRobot {
 	protected void initializeSystems() {
 		super.initializeSystems();
 		this.injector.getInstance(SubsystemDefaultCommandMap.class);
+		this.injector.getInstance(OperatorInterfaceCommandMap.class);
     }
 }
