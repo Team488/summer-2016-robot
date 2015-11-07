@@ -5,6 +5,9 @@ import com.google.inject.Singleton;
 
 import competition.subsystems.drive.DriveSubsystem;
 import competition.subsystems.drive.commands.TankDriveWithJoysticksCommand;
+import competition.subsystems.sensor.SensorSubsystem;
+import competition.subsystems.sensor.commands.GetGyroPropertiesCommand;
+import edu.wpi.first.wpilibj.Gyro;
 
 @Singleton
 public class SubsystemDefaultCommandMap {
@@ -17,4 +20,12 @@ public class SubsystemDefaultCommandMap {
 	{
 		driveSubsystem.setDefaultCommand(command);
 	}
+	
+   @Inject
+    public void setupSensorSubsystem(
+            SensorSubsystem sensorSubsystem,
+            GetGyroPropertiesCommand command)
+    {
+       sensorSubsystem.setDefaultCommand(command);
+    }
 }
