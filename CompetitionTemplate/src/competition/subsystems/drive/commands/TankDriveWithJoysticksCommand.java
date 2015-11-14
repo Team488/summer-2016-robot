@@ -4,7 +4,8 @@ import com.google.inject.Inject;
 
 import competition.operatorinterface.OI;
 import competition.subsystems.drive.DriveSubsystem;
-import xbot.common.wpi_extensions.BaseCommand;
+import xbot.common.command.BaseCommand;
+
 
 public class TankDriveWithJoysticksCommand extends BaseCommand {
 

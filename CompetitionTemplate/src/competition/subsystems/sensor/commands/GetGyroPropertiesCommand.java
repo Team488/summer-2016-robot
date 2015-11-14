@@ -1,36 +1,53 @@
 package competition.subsystems.sensor.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import com.google.inject.Inject;
+
+import competition.operatorinterface.OI;
+import competition.subsystems.drive.DriveSubsystem;
+import competition.subsystems.sensor.SensorSubsystem;
+import edu.wpi.first.wpilibj.Gyro;
+import xbot.common.command.BaseCommand;
 
 /**
  *
  */
-public class GetGyroPropertiesCommand extends Command {
+public class GetGyroPropertiesCommand extends BaseCommand {
 
-    public GetGyroPropertiesCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    SensorSubsystem sensorSubsystem; 
+    
+    @Inject
+    public GetGyroPropertiesCommand(SensorSubsystem sensorSubsystem) {
+        this.sensorSubsystem = sensorSubsystem;      
+        this.requires(this.sensorSubsystem);
     }
+    
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    @Override
+    public void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    @Override
+    public void execute() {
+        sensorSubsystem.operatorControl();
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
+    @Override
+    public boolean isFinished() {
         return false;
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    @Override
+    public void end() {
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted() {
+    @Override
+    public void interrupted() {
     }
 }
