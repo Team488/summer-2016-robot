@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - oraclejdk8
+install:
+  - mkdir -p /home/travis/wpilib/java/current/lib/
+  - cp XbotCommonLib/lib/WPILib.jar /home/travis/wpilib/java/current/lib/
+  - cp XbotCommonLib/lib/NetworkTables.jar /home/travis/wpilib/java/current/lib/
+ 
+env:
+  - TEST_DIR=CompetitionTemplate
+script: cd $TEST_DIR
+
