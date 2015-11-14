@@ -14,15 +14,15 @@ import xbot.common.controls.sensors.navx.AHRS;
  *
  */
 @Singleton
-public class SensorSubsystem extends BaseSubsystem {
+public class ValidateIMUSubsystem extends BaseSubsystem {
 
     AHRS ahrs;
 
-    private static Logger log = Logger.getLogger(SensorSubsystem.class);
+    private static Logger log = Logger.getLogger(ValidateIMUSubsystem.class);
 
     @Inject
-    public SensorSubsystem() {
-        log.debug("Initializing SensorSubsystem");
+    public ValidateIMUSubsystem() {
+        log.debug("Initializing ValidateIMUSubsystem");
         this.ahrs = new AHRS(Port.kMXP);
         /* Alternatives: SPI.kMXP, I2C.kMXP or SerialPort.kUSB */
         this.ahrs.zeroYaw();

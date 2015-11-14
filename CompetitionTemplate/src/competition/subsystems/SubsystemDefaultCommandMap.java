@@ -3,8 +3,8 @@ package competition.subsystems;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import competition.subsystems.sensor.SensorSubsystem;
-import competition.subsystems.sensor.commands.GetGyroPropertiesCommand;
+import competition.subsystems.sensor.ValidateIMUSubsystem;
+import competition.subsystems.sensor.commands.ValidateIMUCommand;
 
 @Singleton
 public class SubsystemDefaultCommandMap {
@@ -20,8 +20,8 @@ public class SubsystemDefaultCommandMap {
 	
    @Inject
     public void setupSensorSubsystem(
-            SensorSubsystem sensorSubsystem,
-            GetGyroPropertiesCommand command)
+            ValidateIMUSubsystem sensorSubsystem,
+            ValidateIMUCommand command)
     {
        sensorSubsystem.setDefaultCommand(command);
     }

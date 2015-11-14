@@ -2,20 +2,20 @@ package competition.subsystems.sensor.commands;
 
 import com.google.inject.Inject;
 
-import competition.subsystems.sensor.SensorSubsystem;
+import competition.subsystems.sensor.ValidateIMUSubsystem;
 import xbot.common.command.BaseCommand;
 
 /**
  *
  */
-public class GetGyroPropertiesCommand extends BaseCommand {
+public class ValidateIMUCommand extends BaseCommand {
 
-    SensorSubsystem sensorSubsystem; 
+    ValidateIMUSubsystem validateIMUSubsystem; 
     
     @Inject
-    public GetGyroPropertiesCommand(SensorSubsystem sensorSubsystem) {
-        this.sensorSubsystem = sensorSubsystem;      
-        this.requires(this.sensorSubsystem);
+    public ValidateIMUCommand(ValidateIMUSubsystem validateIMUSubsystem) {
+        this.validateIMUSubsystem = validateIMUSubsystem;      
+        this.requires(this.validateIMUSubsystem);
     }
     
 
@@ -27,8 +27,7 @@ public class GetGyroPropertiesCommand extends BaseCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        sensorSubsystem.updateDashboard();
-        
+        validateIMUSubsystem.updateDashboard(); 
     }
 
     // Make this return true when this Command no longer needs to run execute()
