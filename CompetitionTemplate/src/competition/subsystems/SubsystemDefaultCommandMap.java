@@ -3,8 +3,6 @@ package competition.subsystems;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import competition.subsystems.drive.DriveSubsystem;
-import competition.subsystems.drive.commands.TankDriveWithJoysticksCommand;
 import competition.subsystems.sensor.SensorSubsystem;
 import competition.subsystems.sensor.commands.GetGyroPropertiesCommand;
 

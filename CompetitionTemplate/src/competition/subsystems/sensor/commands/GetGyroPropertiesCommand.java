@@ -2,10 +2,7 @@ package competition.subsystems.sensor.commands;
 
 import com.google.inject.Inject;
 
-import competition.operatorinterface.OI;
-import competition.subsystems.drive.DriveSubsystem;
 import competition.subsystems.sensor.SensorSubsystem;
-import edu.wpi.first.wpilibj.Gyro;
 import xbot.common.command.BaseCommand;
 
 /**
@@ -30,7 +27,7 @@ public class GetGyroPropertiesCommand extends BaseCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {
-        sensorSubsystem.operatorControl();
+        sensorSubsystem.updateDashboard();
         
     }
 
