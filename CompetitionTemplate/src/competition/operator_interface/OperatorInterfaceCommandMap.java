@@ -1,4 +1,4 @@
-package competition.operatorinterface;
+package competition.operator_interface;
 
 import com.google.inject.Singleton;
 
