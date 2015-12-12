@@ -3,7 +3,7 @@ package competition;
 
 import competition.operator_interface.OperatorInterfaceCommandMap;
 import competition.subsystems.SubsystemDefaultCommandMap;
-import xbot.common.wpi_extensions.BaseRobot;
+import xbot.common.command.BaseRobot;
 
 public class Robot extends BaseRobot {
 
