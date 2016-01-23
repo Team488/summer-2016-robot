@@ -11,6 +11,11 @@
   <!-- Import WPILib deploy configuration (target user accounts, program locations, etc.) -->
   <property file="${commonlib.root}/wpilib-scripts/wpilib-build.properties"/>
   
+  <!-- Import settings set by WPILib plugin locally -->
+  <!-- This is only used for deploying; alternatively, you can set this manually: -->
+  <!-- property name="team-number" value="" /-->
+  <property file="${user.home}/wpilib/wpilib.properties"/>
+  
   <!-- Build JAR for the common lib -->
   <ant antfile="${commonlib.root}/commonlib-build.xml" target="jar" inheritAll="false"/>
   	
