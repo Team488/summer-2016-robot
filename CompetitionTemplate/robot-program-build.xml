@@ -9,15 +9,15 @@
   <property file="robot-program-build.properties"/>
   
   <!-- Import WPILib deploy configuration (target user accounts, program locations, etc.) -->
-  <property file="${xbotcommon.root}/wpilib-scripts/wpilib-build.properties"/>
+  <property file="${commonlib.root}/wpilib-scripts/wpilib-build.properties"/>
   
   <!-- Build JAR for the common lib -->
-  <ant antfile="${xbotcommon.root}/commonlib-build.xml" target="jar" inheritAll="false"/>
+  <ant antfile="${commonlib.root}/commonlib-build.xml" target="jar" inheritAll="false"/>
   	
   <!-- TODO: Do we want this commented out? -->
   <!-- Original commit that made this change said "Something is wrong with deploying the build on my computer, so disabling copying log config" -->
   <!-- <ant antfile="../log4jConfig/deployLogging.xml" target="sendConfig" inheritall="false"/> -->
   
   <!-- Run the WPILib script to deploy our program (including common lib JAR and custom libs) -->
-  <import file="${xbotcommon.root}/wpilib-scripts/wpilib-build.xml"/>
+  <import file="${commonlib.root}/wpilib-scripts/wpilib-build.xml"/>
 </project> 
