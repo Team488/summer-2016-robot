@@ -15,3 +15,7 @@
 hs_err_pid*
 
 sysProps.xml
+
+#Eclipse files
+.metadata/
+RemoteSystemsTempFiles/
