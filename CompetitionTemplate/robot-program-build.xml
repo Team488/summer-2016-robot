@@ -50,7 +50,6 @@
   </target>
 
   <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties" classpath="${commonlib.root}/lib/checkstyle-6.12.1-all.jar" />
-  <dirname property="antfile.dir" file="${ant.file}" />
   <target name="checkstyle" description="Generates a report of code convention violations.">
 
     <checkstyle config="${commonlib.root}/xbotcheckstyle.xml" failureProperty="checkstyle.failed" failOnViolation="true" maxWarnings="0">
