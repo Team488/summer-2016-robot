@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class OperatorCommandMap {
-	// For mapping operator interface buttons to commands
+    // For mapping operator interface buttons to commands
 
     // Example for setting up a command to fire when a button is pressed:
     /*

@@ -2,14 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/XbotCommonLib"/>
-	<classpathentry kind="lib" path="/XbotCommonLib/lib/guice-3.0/guice-3.0-no_aop.jar"/>
-	<classpathentry kind="lib" path="/XbotCommonLib/lib/guice-3.0/javax.inject.jar"/>
-	<classpathentry kind="lib" path="/XbotCommonLib/lib/log4j/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="/XbotCommonLib/lib/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="/XbotCommonLib/lib/NetworkTables.jar"/>
-	<classpathentry kind="lib" path="/XbotCommonLib/lib/WPILib-sources.jar"/>
-	<classpathentry kind="lib" path="/XbotCommonLib/lib/WPILib.jar" sourcepath="/XbotCommonLib/lib/WPILib-sources.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SeriouslyCommonLib"/>
+	<classpathentry kind="lib" path="/SeriouslyCommonLib/lib/guice-3.0/guice-3.0-no_aop.jar"/>
+	<classpathentry kind="lib" path="/SeriouslyCommonLib/lib/guice-3.0/javax.inject.jar"/>
+	<classpathentry kind="lib" path="/SeriouslyCommonLib/lib/log4j/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="/SeriouslyCommonLib/lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="/SeriouslyCommonLib/lib/NetworkTables.jar"/>
+	<classpathentry kind="lib" path="/SeriouslyCommonLib/lib/WPILib-sources.jar"/>
+	<classpathentry kind="lib" path="/SeriouslyCommonLib/lib/WPILib.jar" sourcepath="/SeriouslyCommonLib/lib/WPILib-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

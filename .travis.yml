@@ -1,12 +1,12 @@
 language: java
+sudo: required
+before_install:
+  - wget http://central.maven.org/maven2/org/apache/ant/ant-launcher/1.9.6/ant-launcher-1.9.6.jar
+  - chmod +x ./custom-ant.sh
 jdk:
   - oraclejdk8
-install:
-  - mkdir -p /home/travis/wpilib/java/current/lib/
-  - cp XbotCommonLib/lib/WPILib.jar /home/travis/wpilib/java/current/lib/
-  - cp XbotCommonLib/lib/NetworkTables.jar /home/travis/wpilib/java/current/lib/
- 
 env:
   - TEST_DIR=CompetitionTemplate
-script: cd $TEST_DIR
-
+script: 
+  - cd $TEST_DIR
+  - ../custom-ant.sh check -f robot-program-build.xml
