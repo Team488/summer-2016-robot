@@ -2,5 +2,5 @@ language: java
 jdk:
   - oraclejdk8
 script: 
-  - cd $TEST_DIR
+  - cd CompetitionTemplate
   - ant check -f robot-program-build.xml
