@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import xbot.common.command.BaseSubsystem;
 import xbot.common.controls.actuators.XCANTalon;
-import xbot.common.controls.actuators.XSpeedController;
 import xbot.common.injection.wpi_factories.WPIFactory;
 import xbot.common.properties.DoubleProperty;
 import xbot.common.properties.XPropertyManager;
@@ -33,6 +32,7 @@ public class DriveSubsystem extends BaseSubsystem {
     public DriveSubsystem(WPIFactory factory, XPropertyManager propManager) {
         log.info("Creating DriveSubsystem");
 
+        // TODO: Update these defaults. The current values are blind guesses.
         encoderCodesProperty = propManager.createPersistentProperty("Drive encoder codes per rev", 1000);
         maxSpeedProperty = propManager.createPersistentProperty("Max drive motor speed", 5000);
 
@@ -43,15 +43,18 @@ public class DriveSubsystem extends BaseSubsystem {
         this.leftDrive = factory.getCANTalonSpeedController(1);
         this.leftDriveSlave = factory.getCANTalonSpeedController(2);
         configMotorTeam(leftDrive, leftDriveSlave);
+        leftDrive.createTelemetryProperties("Left master", propManager);
+        leftDriveSlave.createTelemetryProperties("Left slave", propManager);
         
         this.rightDrive = factory.getCANTalonSpeedController(3);
         this.rightDriveSlave = factory.getCANTalonSpeedController(4);
         configMotorTeam(rightDrive, rightDriveSlave);
+        rightDrive.createTelemetryProperties("Right master", propManager);
+        rightDriveSlave.createTelemetryProperties("Right slave", propManager);
     }
 
     private void configMotorTeam(XCANTalon master, XCANTalon slave) {
         // TODO: Check faults and voltage/temp/current
-        // TODO: Configure PID values
         
         // Master config
         master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -91,5 +94,10 @@ public class DriveSubsystem extends BaseSubsystem {
 
         leftDrive.set(leftPower * maxSpeedProperty.get());
         rightDrive.set(rightPower * maxSpeedProperty.get());
+        
+        leftDrive.updateTelemetryProperties();
+        leftDriveSlave.updateTelemetryProperties();
+        rightDrive.updateTelemetryProperties();
+        rightDriveSlave.updateTelemetryProperties();
     }
 }
