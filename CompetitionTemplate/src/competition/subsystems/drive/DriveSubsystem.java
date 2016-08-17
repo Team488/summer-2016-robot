@@ -5,37 +5,91 @@ import org.apache.log4j.Logger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import xbot.common.command.BaseSubsystem;
+import xbot.common.controls.actuators.XCANTalon;
 import xbot.common.controls.actuators.XSpeedController;
 import xbot.common.injection.wpi_factories.WPIFactory;
-import xbot.common.properties.PropertyManager;
+import xbot.common.properties.DoubleProperty;
+import xbot.common.properties.XPropertyManager;
 
 @Singleton
 public class DriveSubsystem extends BaseSubsystem {
     private static Logger log = Logger.getLogger(DriveSubsystem.class);
 
-    public final XSpeedController leftFrontDrive;
-    public final XSpeedController leftRearDrive;
-    public final XSpeedController rightFrontDrive;
-    public final XSpeedController rightRearDrive;
+    public final XCANTalon leftDrive;
+    public final XCANTalon leftDriveSlave;
+    public final XCANTalon rightDrive;
+    public final XCANTalon rightDriveSlave;
+
+    private final DoubleProperty encoderCodesProperty;
+    private final DoubleProperty maxSpeedProperty;
+    private final DoubleProperty p;
+    private final DoubleProperty i;
+    private final DoubleProperty d;
 
     @Inject
-    public DriveSubsystem(WPIFactory factory, PropertyManager propManager) {
+    public DriveSubsystem(WPIFactory factory, XPropertyManager propManager) {
         log.info("Creating DriveSubsystem");
 
-        this.leftFrontDrive = factory.getSpeedController(0);
-        this.leftRearDrive = factory.getSpeedController(2);
+        encoderCodesProperty = propManager.createPersistentProperty("Drive encoder codes per rev", 1000);
+        maxSpeedProperty = propManager.createPersistentProperty("Max drive motor speed", 5000);
 
-        this.rightFrontDrive = factory.getSpeedController(1);
-        this.rightFrontDrive.setInverted(true);
-        this.rightRearDrive = factory.getSpeedController(3);
-        this.rightRearDrive.setInverted(true);
+        p = propManager.createPersistentProperty("Drive P", 10);
+        i = propManager.createPersistentProperty("Drive I", 0);
+        d = propManager.createPersistentProperty("Drive D", 0);
+        
+        this.leftDrive = factory.getCANTalonSpeedController(1);
+        this.leftDriveSlave = factory.getCANTalonSpeedController(2);
+        configMotorTeam(leftDrive, leftDriveSlave);
+        
+        this.rightDrive = factory.getCANTalonSpeedController(3);
+        this.rightDriveSlave = factory.getCANTalonSpeedController(4);
+        configMotorTeam(rightDrive, rightDriveSlave);
     }
 
+    private void configMotorTeam(XCANTalon master, XCANTalon slave) {
+        // TODO: Check faults and voltage/temp/current
+        // TODO: Configure PID values
+        
+        // Master config
+        master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+        master.setBrakeEnableDuringNeutral(false);
+        master.reverseSensor(false);
+        
+        master.configNominalOutputVoltage(0,  -0);
+        master.configPeakOutputVoltage(12, -12);
+        
+        master.setProfile(0);
+        master.setF(0);
+        updateMotorConfig(master);
+        master.setControlMode(TalonControlMode.Speed);
+        
+        master.set(0);
+        
+        // Slave config
+        slave.configNominalOutputVoltage(0,  -0);
+        slave.configPeakOutputVoltage(12, -12);
+        
+        slave.setControlMode(TalonControlMode.Follower);
+        slave.set(master.getDeviceID());
+    }
+    
+    private void updateMotorConfig(XCANTalon motor) {
+        motor.configEncoderCodesPerRev((int)encoderCodesProperty.get());
+        motor.setP(p.get());
+        motor.setI(i.get());
+        motor.setD(d.get());
+    }
+    
     public void tankDrive(double leftPower, double rightPower) {
-        this.leftFrontDrive.set(leftPower);
-        this.leftRearDrive.set(leftPower);
-        this.rightFrontDrive.set(rightPower);
-        this.rightRearDrive.set(rightPower);
+        // TODO: Move parameter updates to something more consistent
+        
+        updateMotorConfig(leftDrive);
+        updateMotorConfig(rightDrive);
+
+        leftDrive.set(leftPower * maxSpeedProperty.get());
+        rightDrive.set(rightPower * maxSpeedProperty.get());
     }
 }
