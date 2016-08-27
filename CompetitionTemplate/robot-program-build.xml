@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="FRC Deployment" default="deploy">
+<project name="FRC Deployment" default="deploy-logs-and-code">
 
   <!-- Note that ant doesn't allow you to override properties, -->
   <!-- so the files are listed in order of descending priority. -->
@@ -19,10 +19,10 @@
   <!-- Build JAR for the common lib -->
   <ant antfile="${commonlib.root}/commonlib-build.xml" target="jar-with-test-code" inheritAll="false" />
 
-  <!-- TODO: Do we want this commented out? -->
-  <!-- Original commit that made this change said "Something is wrong with deploying the build on my computer, so disabling copying log config" -->
-  <!-- <ant antfile="../log4jConfig/deployLogging.xml" target="sendConfig" inheritall="false"/> -->
-
+  <target name="deploy-logs-and-code" depends="deploy">
+  	<ant antfile="lib/log4jConfig/deployLogging.xml" target="sendConfig" inheritall="false"/>
+  </target>
+	
   <!-- Run the WPILib script to deploy our program (including common lib JAR and custom libs) -->
   <import file="${commonlib.root}/wpilib-scripts/wpilib-build.xml" />
 
@@ -42,7 +42,7 @@
       <batchtest fork="yes" todir="${test.report.dir}">
         <formatter type="brief" usefile="false" />
         <fileset dir="${test.dest.dir}">
-          <include name="**/*Test*.class" />
+          <include name="**/*Test.class" />
         </fileset>
       </batchtest>
     </junit>

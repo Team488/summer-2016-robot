@@ -16,12 +16,12 @@
 		
 	  <target name="sendConfig" depends="get-target-ip">
 	  	<echo>[SendLogConfig] Copying log4j.xml over.</echo>
-	     <scp file="log4j.xml" todir="admin@${target}:/usr/local/natinst/labview/" password="" trust="true"/>
+	     <scp file="log4j.xml" todir="admin@${target}:/" password="" trust="true"/>
 	  </target>
 	
 	  <target name="get-target-ip">
 	    <property name="ant.enable.asserts" value="true"/>
-	    <property name="target" value="roboRIO-${team-number}.local" />
+	    <property name="target" value="roboRIO-${team-number}-FRC.local" />
 		<echo>Trying Target: ${target}</echo>
 		 <if>
 			<isreachable host="${target}" timeout="5"/>
