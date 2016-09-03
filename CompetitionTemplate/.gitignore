@@ -1,1 +1,4 @@
 /bin/
+/TeamDatabase
+derby.log
+/488Logs

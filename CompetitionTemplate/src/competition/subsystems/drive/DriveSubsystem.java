@@ -8,7 +8,7 @@ import com.google.inject.Singleton;
 import xbot.common.command.BaseSubsystem;
 import xbot.common.controls.actuators.XSpeedController;
 import xbot.common.injection.wpi_factories.WPIFactory;
-import xbot.common.properties.PropertyManager;
+import xbot.common.properties.XPropertyManager;
 
 @Singleton
 public class DriveSubsystem extends BaseSubsystem {
@@ -20,7 +20,7 @@ public class DriveSubsystem extends BaseSubsystem {
     public final XSpeedController rightRearDrive;
 
     @Inject
-    public DriveSubsystem(WPIFactory factory, PropertyManager propManager) {
+    public DriveSubsystem(WPIFactory factory, XPropertyManager propManager) {
         log.info("Creating DriveSubsystem");
 
         this.leftFrontDrive = factory.getSpeedController(0);
