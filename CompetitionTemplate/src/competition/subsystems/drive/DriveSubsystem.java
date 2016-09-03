@@ -33,21 +33,21 @@ public class DriveSubsystem extends BaseSubsystem {
         log.info("Creating DriveSubsystem");
 
         // TODO: Update these defaults. The current values are blind guesses.
-        encoderCodesProperty = propManager.createPersistentProperty("Drive encoder codes per rev", 1000);
-        maxSpeedProperty = propManager.createPersistentProperty("Max drive motor speed", 5000);
+        encoderCodesProperty = propManager.createPersistentProperty("Drive encoder codes per rev", 512);
+        maxSpeedProperty = propManager.createPersistentProperty("Max drive motor speed (rotations per second)", 5);
 
-        p = propManager.createPersistentProperty("Drive P", 10);
+        p = propManager.createPersistentProperty("Drive P", 2);
         i = propManager.createPersistentProperty("Drive I", 0);
-        d = propManager.createPersistentProperty("Drive D", 0);
+        d = propManager.createPersistentProperty("Drive D", -100);
         
-        this.leftDrive = factory.getCANTalonSpeedController(1);
-        this.leftDriveSlave = factory.getCANTalonSpeedController(2);
+        this.leftDrive = factory.getCANTalonSpeedController(3);
+        this.leftDriveSlave = factory.getCANTalonSpeedController(4);
         configMotorTeam(leftDrive, leftDriveSlave);
         leftDrive.createTelemetryProperties("Left master", propManager);
         leftDriveSlave.createTelemetryProperties("Left slave", propManager);
         
-        this.rightDrive = factory.getCANTalonSpeedController(3);
-        this.rightDriveSlave = factory.getCANTalonSpeedController(4);
+        this.rightDrive = factory.getCANTalonSpeedController(1);
+        this.rightDriveSlave = factory.getCANTalonSpeedController(2);
         configMotorTeam(rightDrive, rightDriveSlave);
         rightDrive.createTelemetryProperties("Right master", propManager);
         rightDriveSlave.createTelemetryProperties("Right slave", propManager);
@@ -68,6 +68,7 @@ public class DriveSubsystem extends BaseSubsystem {
         master.setF(0);
         updateMotorConfig(master);
         master.setControlMode(TalonControlMode.Speed);
+        //master.setControlMode(TalonControlMode.PercentVbus);
         
         master.set(0);
         
@@ -92,8 +93,12 @@ public class DriveSubsystem extends BaseSubsystem {
         updateMotorConfig(leftDrive);
         updateMotorConfig(rightDrive);
 
-        leftDrive.set(leftPower * maxSpeedProperty.get());
-        rightDrive.set(rightPower * maxSpeedProperty.get());
+        double maxTicksPerTenMs = maxSpeedProperty.get() * encoderCodesProperty.get() / 100;
+        leftDrive.set(leftPower * maxTicksPerTenMs);
+        rightDrive.set(rightPower * maxTicksPerTenMs);
+
+        //leftDrive.set(leftPower);
+        //rightDrive.set(rightPower);
         
         leftDrive.updateTelemetryProperties();
         leftDriveSlave.updateTelemetryProperties();
