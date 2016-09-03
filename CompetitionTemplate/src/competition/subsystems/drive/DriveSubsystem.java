@@ -63,7 +63,7 @@ public class DriveSubsystem extends BaseSubsystem {
         
         master.configNominalOutputVoltage(0,  -0);
         master.configPeakOutputVoltage(12, -12);
-        
+
         master.setProfile(0);
         master.setF(0);
         updateMotorConfig(master);
@@ -85,7 +85,7 @@ public class DriveSubsystem extends BaseSubsystem {
         motor.setI(i.get());
         motor.setD(d.get());
     }
-    
+
     public void tankDrive(double leftPower, double rightPower) {
         // TODO: Move parameter updates to something more consistent
         

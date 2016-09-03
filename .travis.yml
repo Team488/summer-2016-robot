@@ -3,4 +3,4 @@ jdk:
   - oraclejdk8
 script: 
   - cd CompetitionTemplate
-  - ant check -f robot-program-build.xml
+  - ant check -f travis-build.xml
