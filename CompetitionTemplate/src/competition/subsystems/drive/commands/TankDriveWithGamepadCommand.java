@@ -6,13 +6,13 @@ import competition.operator_interface.OperatorInterface;
 import competition.subsystems.drive.DriveSubsystem;
 import xbot.common.command.BaseCommand;
 
-public class TankDriveWithJoysticksCommand extends BaseCommand {
+public class TankDriveWithGamepadCommand extends BaseCommand {
 
     final DriveSubsystem driveSubsystem;
     final OperatorInterface oi;
 
     @Inject
-    public TankDriveWithJoysticksCommand(OperatorInterface oi, DriveSubsystem driveSubsystem) {
+    public TankDriveWithGamepadCommand(OperatorInterface oi, DriveSubsystem driveSubsystem) {
         this.oi = oi;
         this.driveSubsystem = driveSubsystem;
         this.requires(this.driveSubsystem);
@@ -25,6 +25,7 @@ public class TankDriveWithJoysticksCommand extends BaseCommand {
 
     @Override
     public void execute() {
-        driveSubsystem.tankDrive(oi.leftJoystick.getVector().y, oi.rightJoystick.getVector().y);
+        // TODO: replace this with proper logic
+        driveSubsystem.tankDrive(oi.leftJoystick.getVector().y, oi.leftJoystick.getRawAxis(5));
     }
 }

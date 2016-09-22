@@ -21,12 +21,13 @@ public class DriveSubsystem extends BaseSubsystem {
     public final XCANTalon leftDriveSlave;
     public final XCANTalon rightDrive;
     public final XCANTalon rightDriveSlave;
-
+    
     private final DoubleProperty encoderCodesProperty;
     private final DoubleProperty maxSpeedProperty;
     private final DoubleProperty p;
     private final DoubleProperty i;
     private final DoubleProperty d;
+    private final DoubleProperty f;
 
     @Inject
     public DriveSubsystem(WPIFactory factory, XPropertyManager propManager) {
@@ -39,6 +40,7 @@ public class DriveSubsystem extends BaseSubsystem {
         p = propManager.createPersistentProperty("Drive P", 2);
         i = propManager.createPersistentProperty("Drive I", 0);
         d = propManager.createPersistentProperty("Drive D", -100);
+        f = propManager.createPersistentProperty("Drive F", 0);
         
         this.leftDrive = factory.getCANTalonSpeedController(3);
         this.leftDriveSlave = factory.getCANTalonSpeedController(4);
@@ -85,6 +87,7 @@ public class DriveSubsystem extends BaseSubsystem {
         motor.setP(p.get());
         motor.setI(i.get());
         motor.setD(d.get());
+        motor.setF(f.get());
     }
 
     public void tankDrive(double leftPower, double rightPower) {
