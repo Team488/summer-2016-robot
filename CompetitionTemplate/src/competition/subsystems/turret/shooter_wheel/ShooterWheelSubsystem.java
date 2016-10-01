@@ -12,7 +12,6 @@ import xbot.common.controls.actuators.XCANTalon;
 import xbot.common.injection.wpi_factories.WPIFactory;
 import xbot.common.properties.BooleanProperty;
 import xbot.common.properties.DoubleProperty;
-import xbot.common.properties.StringProperty;
 import xbot.common.properties.XPropertyManager;
 
 @Singleton
@@ -26,6 +25,7 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
     
     // output telemetry properties
     private final DoubleProperty shooterCurrentSpeed;
+    private final DoubleProperty shooterTargetSpeedProp;
     private final DoubleProperty shooterOutputPower;
     private final DoubleProperty shooterTalonError;
     private final BooleanProperty atSpeedProp;
@@ -55,6 +55,7 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         
         nominalSpeedThresh = propManager.createPersistentProperty("Shooter wheel nominal speed thresh (rot per sec)", 1);
         shooterCurrentSpeed = propManager.createEphemeralProperty("Shooter wheel current speed (rot per sec)", 0);
+        shooterTargetSpeedProp = propManager.createEphemeralProperty("Shooter wheel target speed (rot per sec)", 0);
         shooterOutputPower = propManager.createEphemeralProperty("Shooter wheel current output power", 0);
         atSpeedProp = propManager.createEphemeralProperty("Is shooter at speed?", false);
         shooterTalonError = propManager.createEphemeralProperty("Shooter talon error", 0);
@@ -73,7 +74,7 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         master.setBrakeEnableDuringNeutral(false);
         // TODO: move inversion
-        master.reverseSensor(true);
+        //master.reverseSensor(true);
         master.setInverted(true);
         
         master.configNominalOutputVoltage(0,  -0);
@@ -105,7 +106,8 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
 
     public void setShooterTarget(double shooterTargetSpeed) {
         this.shooterTargetSpeed = shooterTargetSpeed;
-        masterMotor.set(shooterTargetSpeed * encoderCodesProperty.get() / 100);
+        shooterTargetSpeedProp.set(shooterTargetSpeed);
+        masterMotor.set(shooterTargetSpeed * 60);
         
         updateMotorState();
     }
