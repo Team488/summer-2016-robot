@@ -19,8 +19,8 @@ import xbot.common.properties.XPropertyManager;
 public class ShooterWheelSubsystem extends BaseSubsystem {
     private static Logger log = Logger.getLogger(ShooterWheelSubsystem.class);
 
-    public final XCANTalon masterMotor;
-    public final XCANTalon slaveMotor;
+    private final XCANTalon masterMotor;
+    private final XCANTalon slaveMotor;
     
     private final DoubleProperty shooterLaunchSpeed;
     
@@ -46,12 +46,12 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         // TODO: Update these defaults. The current values are blind guesses.
         shooterLaunchSpeed = propManager.createPersistentProperty("Shooter wheel launch speed", 10);
         
-        encoderCodesProperty = propManager.createPersistentProperty("Shooter encoder codes per rev", 512);
+        encoderCodesProperty = propManager.createPersistentProperty("Shooter encoder codes per rev", 4096);
 
         p = propManager.createPersistentProperty("Shooter wheel P", 10);
         i = propManager.createPersistentProperty("Shooter wheel I", 0);
         d = propManager.createPersistentProperty("Shooter wheel D", 0);
-        f = propManager.createPersistentProperty("Shooter wheel F", 10);
+        f = propManager.createPersistentProperty("Shooter wheel F", 0);
         
         nominalSpeedThresh = propManager.createPersistentProperty("Shooter wheel nominal speed thresh (rot per sec)", 1);
         shooterCurrentSpeed = propManager.createEphemeralProperty("Shooter wheel current speed (rot per sec)", 0);
@@ -72,7 +72,9 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         // Master config
         master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         master.setBrakeEnableDuringNeutral(false);
-        master.reverseSensor(false);
+        // TODO: move inversion
+        master.reverseSensor(true);
+        master.setInverted(true);
         
         master.configNominalOutputVoltage(0,  -0);
         master.configPeakOutputVoltage(12, -12);
