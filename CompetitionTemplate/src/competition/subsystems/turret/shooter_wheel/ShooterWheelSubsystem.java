@@ -12,6 +12,7 @@ import xbot.common.controls.actuators.XCANTalon;
 import xbot.common.injection.wpi_factories.WPIFactory;
 import xbot.common.properties.BooleanProperty;
 import xbot.common.properties.DoubleProperty;
+import xbot.common.properties.StringProperty;
 import xbot.common.properties.XPropertyManager;
 
 @Singleton
@@ -23,8 +24,11 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
     
     private final DoubleProperty shooterLaunchSpeed;
     
+    // output telemetry properties
     private final DoubleProperty shooterCurrentSpeed;
     private final DoubleProperty shooterOutputPower;
+    private final DoubleProperty shooterTalonError;
+    private final BooleanProperty atSpeedProp;
     
     private final DoubleProperty encoderCodesProperty;
     private final DoubleProperty p;
@@ -34,9 +38,6 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
     
     private double shooterTargetSpeed = 0;
     private final DoubleProperty nominalSpeedThresh;
-    
-    private final BooleanProperty atSpeedProp;
-    
 
     @Inject
     public ShooterWheelSubsystem(WPIFactory factory, XPropertyManager propManager) {
@@ -56,6 +57,7 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         shooterCurrentSpeed = propManager.createEphemeralProperty("Shooter wheel current speed (rot per sec)", 0);
         shooterOutputPower = propManager.createEphemeralProperty("Shooter wheel current output power", 0);
         atSpeedProp = propManager.createEphemeralProperty("Is shooter at speed?", false);
+        shooterTalonError = propManager.createEphemeralProperty("Shooter talon error", 0);
         
         this.masterMotor = factory.getCANTalonSpeedController(7);
         this.slaveMotor = factory.getCANTalonSpeedController(8);
@@ -131,5 +133,6 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
     public void updateTelemetry() {
         shooterCurrentSpeed.set(getSpeed());
         shooterOutputPower.set(masterMotor.getOutputVoltage() / masterMotor.getBusVoltage());
+        shooterTalonError.set(masterMotor.getClosedLoopError());
     }
 }
