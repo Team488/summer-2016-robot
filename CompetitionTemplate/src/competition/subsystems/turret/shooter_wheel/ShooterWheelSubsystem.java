@@ -23,6 +23,9 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
     
     private final DoubleProperty shooterLaunchSpeed;
     
+    private final DoubleProperty shooterCurrentSpeed;
+    private final DoubleProperty shooterOutputPower;
+    
     private final DoubleProperty encoderCodesProperty;
     private final DoubleProperty p;
     private final DoubleProperty i;
@@ -50,6 +53,8 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         f = propManager.createPersistentProperty("Shooter wheel F", 10);
         
         nominalSpeedThresh = propManager.createPersistentProperty("Shooter wheel nominal speed thresh (rot per sec)", 1);
+        shooterCurrentSpeed = propManager.createEphemeralProperty("Shooter wheel current speed (rot per sec)", 0);
+        shooterOutputPower = propManager.createEphemeralProperty("Shooter wheel current output power", 0);
         atSpeedProp = propManager.createEphemeralProperty("Is shooter at speed?", false);
         
         this.masterMotor = factory.getCANTalonSpeedController(7);
@@ -121,5 +126,10 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
     
     public double getShooterLaunchSpeed() {
         return shooterLaunchSpeed.get();
+    }
+    
+    public void updateTelemetry() {
+        shooterCurrentSpeed.set(getSpeed());
+        shooterOutputPower.set(masterMotor.getOutputVoltage() / masterMotor.getBusVoltage());
     }
 }

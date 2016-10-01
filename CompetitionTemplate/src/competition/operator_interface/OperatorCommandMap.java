@@ -3,18 +3,19 @@ package competition.operator_interface;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import competition.subsystems.turret.shooter_wheel.ShooterWheelSubsystem;
+import competition.subsystems.turret.shooter_wheel.commands.StartShooterWheelCommand;
+import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
+
 @Singleton
 public class OperatorCommandMap {
     // For mapping operator interface buttons to commands
-
-    // Example for setting up a command to fire when a button is pressed:
-    /*
+    
     @Inject
-    public void setupMyCommands(
-            OperatorInterface operatorInterface,
-            MyCommand myCommand)
-    {
-        operatorInterface.leftButtons.getifAvailable(1).whenPressed(myCommand);
+    public void setupShooterWheelCommands(OperatorInterface operatorInterface, 
+            StartShooterWheelCommand startShooterWheelCommand,
+            StopShooterWheelCommand stopShooterWheelCommand) {
+        startShooterWheelCommand.includeOnSmartDashboard();
+        stopShooterWheelCommand.includeOnSmartDashboard();
     }
-    */
 }
