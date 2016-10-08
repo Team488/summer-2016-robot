@@ -36,6 +36,8 @@ public class TurretRotationSubsystem extends BaseSubsystem {
 
         rotationMotor.setProfile(0);
         rotationMotor.setControlMode(TalonControlMode.PercentVbus);
+        
+        rotationMotor.enableLimitSwitches(false, false);
     }
 
     public void setRotationPower(double power) {

@@ -76,6 +76,7 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         // TODO: move inversion
         //master.reverseSensor(true);
         master.setInverted(true);
+        master.enableLimitSwitches(false, false);
         
         master.configNominalOutputVoltage(0,  -0);
         master.configPeakOutputVoltage(12, -12);
@@ -91,6 +92,7 @@ public class ShooterWheelSubsystem extends BaseSubsystem {
         // Slave config
         slave.configNominalOutputVoltage(0,  -0);
         slave.configPeakOutputVoltage(12, -12);
+        slave.enableLimitSwitches(false, false);
         
         slave.setControlMode(TalonControlMode.Follower);
         slave.set(master.getDeviceID());

@@ -62,6 +62,7 @@ public class DriveSubsystem extends BaseSubsystem {
         master.setFeedbackDevice(FeedbackDevice.QuadEncoder);
         master.setBrakeEnableDuringNeutral(false);
         master.reverseSensor(false);
+        master.enableLimitSwitches(false, false);
         
         master.configNominalOutputVoltage(0,  -0);
         master.configPeakOutputVoltage(12, -12);
@@ -77,6 +78,7 @@ public class DriveSubsystem extends BaseSubsystem {
         // Slave config
         slave.configNominalOutputVoltage(0,  -0);
         slave.configPeakOutputVoltage(12, -12);
+        slave.enableLimitSwitches(false, false);
         
         slave.setControlMode(TalonControlMode.Follower);
         slave.set(master.getDeviceID());
