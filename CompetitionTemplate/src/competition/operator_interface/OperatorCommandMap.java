@@ -6,7 +6,6 @@ import com.google.inject.Singleton;
 import competition.subsystems.collector.commands.IntakeCollectorCommand;
 import competition.subsystems.collector.commands.EjectCollectorCommand;
 import competition.subsystems.feeder.commands.RaiseFeederCommand;
-import competition.subsystems.turret.shooter_wheel.ShooterWheelSubsystem;
 import competition.subsystems.turret.shooter_wheel.commands.StartShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
 
@@ -15,9 +14,9 @@ public class OperatorCommandMap {
     // For mapping operator interface buttons to commands
     
     @Inject
-    public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand ccc, EjectCollectorCommand ecc){
-        oi.leftButtons.getifAvailable(1).whileHeld(ccc);
-        oi.leftButtons.getifAvailable(2).whileHeld(ecc);
+    public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand intakeCommand, EjectCollectorCommand ejectCommand){
+        oi.leftButtons.getifAvailable(1).whileHeld(intakeCommand);
+        oi.leftButtons.getifAvailable(2).whileHeld(ejectCommand);
     }
     
     @Inject
