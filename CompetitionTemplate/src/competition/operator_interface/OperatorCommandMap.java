@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 
 import competition.subsystems.collector.commands.IntakeCollectorCommand;
 import competition.subsystems.collector.commands.EjectCollectorCommand;
+import competition.subsystems.feeder.commands.RaiseFeederCommand;
 import competition.subsystems.turret.shooter_wheel.ShooterWheelSubsystem;
 import competition.subsystems.turret.shooter_wheel.commands.StartShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
@@ -25,5 +26,12 @@ public class OperatorCommandMap {
             StopShooterWheelCommand stopShooterWheelCommand) {
         startShooterWheelCommand.includeOnSmartDashboard();
         stopShooterWheelCommand.includeOnSmartDashboard();
+    }
+    
+    @Inject
+    public void setupFeederCommands(OperatorInterface operatorInterface, 
+            RaiseFeederCommand raiseFeederCommand) {
+        raiseFeederCommand.includeOnSmartDashboard();
+        operatorInterface.leftButtons.getifAvailable(1).whileHeld(raiseFeederCommand);
     }
 }
