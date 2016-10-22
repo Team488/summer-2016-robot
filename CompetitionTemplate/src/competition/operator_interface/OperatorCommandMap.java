@@ -24,5 +24,6 @@ public class OperatorCommandMap {
     public void setupFeederCommands(OperatorInterface operatorInterface, 
             RaiseFeederCommand raiseFeederCommand) {
         raiseFeederCommand.includeOnSmartDashboard();
+        operatorInterface.leftButtons.getifAvailable(1).whileHeld(raiseFeederCommand);
     }
 }
