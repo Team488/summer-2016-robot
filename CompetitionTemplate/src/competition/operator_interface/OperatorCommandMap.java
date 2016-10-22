@@ -16,7 +16,7 @@ public class OperatorCommandMap {
     @Inject
     public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand intakeCommand, EjectCollectorCommand ejectCommand){
         oi.leftButtons.getifAvailable(1).whileHeld(intakeCommand);
-        oi.leftButtons.getifAvailable(2).whileHeld(ejectCommand);
+        oi.leftButtons.getifAvailable(3).whileHeld(ejectCommand);
     }
     
     @Inject
@@ -31,6 +31,6 @@ public class OperatorCommandMap {
     public void setupFeederCommands(OperatorInterface operatorInterface, 
             RaiseFeederCommand raiseFeederCommand) {
         raiseFeederCommand.includeOnSmartDashboard();
-        operatorInterface.leftButtons.getifAvailable(1).whileHeld(raiseFeederCommand);
+        operatorInterface.leftButtons.getifAvailable(6).whileHeld(raiseFeederCommand);
     }
 }
