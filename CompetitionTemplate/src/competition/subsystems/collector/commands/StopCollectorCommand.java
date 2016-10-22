@@ -7,24 +7,21 @@ import xbot.common.command.BaseCommand;
 
 public class StopCollectorCommand extends BaseCommand{
     
-    final CollectorSubsystem CollectorSubsystem;
+    final CollectorSubsystem collectorSubsystem;
     
     @Inject
-    public StopCollectorCommand(CollectorSubsystem CollectorSubsystem){
-        this.CollectorSubsystem = CollectorSubsystem;
-        this.requires(this.CollectorSubsystem);
+    public StopCollectorCommand(CollectorSubsystem collectorSubsystem){
+        this.collectorSubsystem = collectorSubsystem;
+        this.requires(this.collectorSubsystem);
     }
     
     @Override
     public void initialize() {
-        // TODO Auto-generated method stub
-        
+        collectorSubsystem.stop();
     }
 
     @Override
     public void execute() {
-        // TODO Auto-generated method stub
-        CollectorSubsystem.stop();
     }
 
 }
