@@ -96,19 +96,18 @@ public class DriveSubsystem extends BaseSubsystem {
     
     public double convertPowerToVelocityTarget(double power) {
         double maxTicksPerTenMs = maxSpeedProperty.get() * encoderCodesProperty.get() / 100;
-        double velocityTarget = power * maxTicksPerTenMs;
-        return velocityTarget;
+        return power * maxTicksPerTenMs;
     }
     
-    private void ensureSpeedModeForTalon(XCANTalon talon) {
-        if (talon.getControlMode() != TalonControlMode.Speed) {
-            talon.setControlMode(TalonControlMode.Speed);
+    private void ensureModeForTalon(XCANTalon talon, TalonControlMode mode) {
+        if (talon.getControlMode() != mode) {
+            talon.setControlMode(mode);
         }
     }
     
     private void ensureSpeedModeForDrive() {
-        ensureSpeedModeForTalon(leftDrive);
-        ensureSpeedModeForTalon(rightDrive);
+        ensureModeForTalon(leftDrive, TalonControlMode.Speed);
+        ensureModeForTalon(rightDrive, TalonControlMode.Speed);
     }
 
     public void tankDriveVelocityPid(double leftPower, double rightPower) {
@@ -116,8 +115,8 @@ public class DriveSubsystem extends BaseSubsystem {
         ensureSpeedModeForDrive();
         
         // Coerce powers into appropriate limits
-        leftPower = MathUtils.constrainDouble(leftPower, -1, 1);
-        rightPower = MathUtils.constrainDouble(rightPower, -1, 1);
+        leftPower = MathUtils.constrainDoubleToRobotScale(leftPower);
+        rightPower = MathUtils.constrainDoubleToRobotScale(rightPower);
         
         updateMotorConfig(leftDrive);
         updateMotorConfig(rightDrive);
