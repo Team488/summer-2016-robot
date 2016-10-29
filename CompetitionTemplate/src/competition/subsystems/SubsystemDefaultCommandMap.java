@@ -41,7 +41,7 @@ public class SubsystemDefaultCommandMap {
     
     @Inject
     public void setupShooterWheelSubsystem(ShooterWheelSubsystem shooterSubsystem, ControlShooterWheelWithGamepadCommand command) {
-        shooterSubsystem.setDefaultCommand(command);
+        //shooterSubsystem.setDefaultCommand(command);
     }
     
     @Inject
