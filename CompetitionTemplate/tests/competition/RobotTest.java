@@ -17,4 +17,5 @@ public class RobotTest extends BaseWPITest{
         this.injector.getInstance(TurretRotationSubsystem.class);
         this.injector.getInstance(ShooterWheelSubsystem.class);
     }
+    
 }
