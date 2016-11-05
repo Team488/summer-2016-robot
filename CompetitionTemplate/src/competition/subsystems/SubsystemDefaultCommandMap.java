@@ -16,7 +16,6 @@ import competition.subsystems.telemetry.commands.UpdateTelemetryCommand;
 import competition.subsystems.turret.shooter_wheel.ShooterWheelSubsystem;
 import competition.subsystems.turret.rotation.TurretRotationSubsystem;
 import competition.subsystems.turret.rotation.commands.RotateTurretWithGamepadCommand;
-import competition.subsystems.turret.rotation.commands.RotateTurretWithJoystickCommand;
 import competition.subsystems.turret.shooter_wheel.commands.ControlShooterWheelWithGamepadCommand;
 
 @Singleton
@@ -48,7 +47,7 @@ public class SubsystemDefaultCommandMap {
     }
     
     @Inject
-    public void setupShooterWheelSubsystem(TurretRotationSubsystem turretRotSubsystem, RotateTurretWithJoystickCommand command) {
+    public void setupShooterWheelSubsystem(TurretRotationSubsystem turretRotSubsystem, RotateTurretWithGamepadCommand command) {
         turretRotSubsystem.setDefaultCommand(command);
     }
     
