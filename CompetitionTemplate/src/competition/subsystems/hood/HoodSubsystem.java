@@ -22,6 +22,10 @@ public class HoodSubsystem extends BaseSubsystem{
     DoubleProperty propRetractPower;
     DoubleProperty propStopPower;
     
+    DoubleProperty hoodPosition;
+    DoubleProperty hoodExtendPosition;
+    DoubleProperty hoodRetractPosition;
+    
     @Inject
     public HoodSubsystem(WPIFactory factory, XPropertyManager propManager){
         hoodMotor = factory.getCANTalonSpeedController(0);
@@ -50,5 +54,19 @@ public class HoodSubsystem extends BaseSubsystem{
     public void stop(){
         hoodMotor.set(propStopPower.get());
     }
+    
+    public void setRotationPower(double power) {
+                hoodPosition.set(hoodMotor.getEncoderPosition());
+        
+                if(hoodPosition.get() > hoodExtendPosition.get()){
+                    setRotationPower(0);
+                }
+                
+                if(hoodPosition.get() < hoodRetractPosition.get()){
+                    setRotationPower(0);
+                }
+              
+                 hoodMotor.set(power);
+             }
 }
 
