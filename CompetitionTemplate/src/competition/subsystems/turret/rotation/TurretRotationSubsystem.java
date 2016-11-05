@@ -20,6 +20,10 @@ public class TurretRotationSubsystem extends BaseSubsystem {
 
     public final XCANTalon rotationMotor;
     
+    final DoubleProperty turretPosition;
+    
+    final DoubleProperty turretPositivePositionLimit;
+    final DoubleProperty turretNegativePositionLimit;
 
     @Inject
     public TurretRotationSubsystem(WPIFactory factory, XPropertyManager propManager) {
@@ -38,9 +42,26 @@ public class TurretRotationSubsystem extends BaseSubsystem {
         rotationMotor.setControlMode(TalonControlMode.PercentVbus);
         
         rotationMotor.enableLimitSwitches(false, false);
+        
+        rotationMotor.createTelemetryProperties("turretRotationMotor", propManager);
+        
+        turretPosition = propManager.createEphemeralProperty("turretPosition", 0);
+        
+        turretPositivePositionLimit = propManager.createPersistentProperty("turretPositivePositionLimit", 2000);
+        turretNegativePositionLimit = propManager.createPersistentProperty("turretNegativePositionLimit", -2000);
     }
 
     public void setRotationPower(double power) {
+        turretPosition.set(rotationMotor.getEncoderPosition());
+
+        if(turretPosition.get() > turretPositivePositionLimit.get()){
+            setRotationPower(0);
+        }
+        
+        if(turretPosition.get() < turretNegativePositionLimit.get()){
+            setRotationPower(0);
+        }
+        
         rotationMotor.set(power);
     }
 }
