@@ -20,6 +20,7 @@ public class HoodSubsystem extends BaseSubsystem{
     
     DoubleProperty propExtendPower;
     DoubleProperty propRetractPower;
+    DoubleProperty propStopPower;
     
     @Inject
     public HoodSubsystem(WPIFactory factory, XPropertyManager propManager){
@@ -35,6 +36,7 @@ public class HoodSubsystem extends BaseSubsystem{
         
         propExtendPower = propManager.createPersistentProperty("Hood Extend Power", 1);
         propRetractPower = propManager.createPersistentProperty("Hood Retract Power", -1);
+        propStopPower = propManager.createPersistentProperty("Hood Power Power", 0);
     }
     
     public void extend(){
@@ -43,6 +45,10 @@ public class HoodSubsystem extends BaseSubsystem{
     
     public void retract(){
         hoodMotor.set(propRetractPower.get());
+    }
+    
+    public void stop(){
+        hoodMotor.set(propStopPower.get());
     }
 }
 
