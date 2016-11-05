@@ -22,8 +22,8 @@ public class TurretRotationSubsystem extends BaseSubsystem {
     
     final DoubleProperty turretPosition;
     
-    final DoubleProperty turretPositivePosition;
-    final DoubleProperty turretNegativePosition;
+    final DoubleProperty turretPositivePositionLimit;
+    final DoubleProperty turretNegativePositionLimit;
 
     @Inject
     public TurretRotationSubsystem(WPIFactory factory, XPropertyManager propManager) {
@@ -47,18 +47,18 @@ public class TurretRotationSubsystem extends BaseSubsystem {
         
         turretPosition = propManager.createEphemeralProperty("turretPosition", 0);
         
-        turretPositivePosition = propManager.createPersistentProperty("turretPositivePosition", 2000);
-        turretNegativePosition = propManager.createPersistentProperty("turretNegativePosition", -2000);
+        turretPositivePositionLimit = propManager.createPersistentProperty("turretPositivePositionLimit", 2000);
+        turretNegativePositionLimit = propManager.createPersistentProperty("turretNegativePositionLimit", -2000);
     }
 
     public void setRotationPower(double power) {
         turretPosition.set(rotationMotor.getEncoderPosition());
 
-        if(turretPosition.get() > turretPositivePosition.get()){
+        if(turretPosition.get() > turretPositivePositionLimit.get()){
             setRotationPower(0);
         }
         
-        if(turretPosition.get() < turretNegativePosition.get()){
+        if(turretPosition.get() < turretNegativePositionLimit.get()){
             setRotationPower(0);
         }
         
