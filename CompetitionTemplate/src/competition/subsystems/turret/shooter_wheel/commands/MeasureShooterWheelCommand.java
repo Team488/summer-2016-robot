@@ -21,7 +21,6 @@ public class MeasureShooterWheelCommand extends BaseCommand {
     @Inject
     public MeasureShooterWheelCommand(ShooterWheelSubsystem shooterSubsystem, XPropertyManager propManager) {
         this.shooterSubsystem = shooterSubsystem;
-        this.includeOnSmartDashboard();
         
         minRecordedWheelSpeed = propManager.createEphemeralProperty("MinRecordedWheelSpeed", 999999999999.0);
         maxRecordedWheelSpeed = propManager.createEphemeralProperty("MaxRecordedWheelSpeed", 0.0);
