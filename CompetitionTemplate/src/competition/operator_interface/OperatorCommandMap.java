@@ -11,6 +11,7 @@ import competition.subsystems.hood.commands.RetractHoodCommand;
 import competition.subsystems.turret.shooter_wheel.commands.MeasureShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StartShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
+import xbot.common.controls.sensors.wpi_adapters.GamepadJoystickWpiAdapter;
 
 @Singleton
 public class OperatorCommandMap {
@@ -23,8 +24,8 @@ public class OperatorCommandMap {
     
     @Inject
     public void setupHoodCommands(OperatorInterface oi, ExtendHoodCommand extendCommand, RetractHoodCommand retractCommand){
-        oi.leftButtons.getifAvailable(/*TODO: D-pad down*/).whileHeld(extendCommand);
-        oi.leftButtons.getifAvailable(/*TODO: D-pad up*/).whileHeld(retractCommand);
+        oi.dpadButtons.getifAvailable(GamepadJoystickWpiAdapter.DPadDown).whileHeld(extendCommand);
+        oi.dpadButtons.getifAvailable(GamepadJoystickWpiAdapter.DPadUp).whileHeld(retractCommand);
     }
     
     @Inject

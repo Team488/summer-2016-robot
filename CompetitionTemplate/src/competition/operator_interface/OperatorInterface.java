@@ -21,6 +21,7 @@ public class OperatorInterface {
     
     public XGamepad gamepad;
 
+    public JoystickButtonManager dpadButtons;
     public JoystickButtonManager leftButtons;
     public JoystickButtonManager rightButtons;
 
