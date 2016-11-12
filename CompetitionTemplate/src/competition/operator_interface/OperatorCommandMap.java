@@ -16,28 +16,24 @@ public class OperatorCommandMap {
     // For mapping operator interface buttons to commands
     
     @Inject
-    public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand intakeCommand, EjectCollectorCommand ejectCommand){
-        oi.leftButtons.getifAvailable(1).whileHeld(intakeCommand);
-        oi.leftButtons.getifAvailable(3).whileHeld(ejectCommand);
+    public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand intakeCommand){
+        oi.leftButtons.getifAvailable(5).whileHeld(intakeCommand);
     }
     
     @Inject
     public void setupHoodCommands(OperatorInterface oi, ExtendHoodCommand extendCommand, RetractHoodCommand retractCommand){
-        oi.leftButtons.getifAvailable(2).whileHeld(extendCommand);
-        oi.leftButtons.getifAvailable(4).whileHeld(retractCommand);
+        oi.leftButtons.getifAvailable(/*TODO: D-pad down*/).whileHeld(extendCommand);
+        oi.leftButtons.getifAvailable(/*TODO: D-pad up*/).whileHeld(retractCommand);
     }
     
     @Inject
-    public void setupShooterWheelCommands(OperatorInterface operatorInterface, 
-            StartShooterWheelCommand startShooterWheelCommand,
-            StopShooterWheelCommand stopShooterWheelCommand) {
+    public void setupShooterWheelCommands(OperatorInterface operatorInterface, StartShooterWheelCommand startShooterWheelCommand) {
         startShooterWheelCommand.includeOnSmartDashboard();
-        stopShooterWheelCommand.includeOnSmartDashboard();
+        operatorInterface.leftButtons.getifAvailable(1).whileHeld(startShooterWheelCommand);
     }
     
     @Inject
-    public void setupFeederCommands(OperatorInterface operatorInterface, 
-            RaiseFeederCommand raiseFeederCommand) {
+    public void setupFeederCommands(OperatorInterface operatorInterface, RaiseFeederCommand raiseFeederCommand) {
         raiseFeederCommand.includeOnSmartDashboard();
         operatorInterface.leftButtons.getifAvailable(6).whileHeld(raiseFeederCommand);
     }
