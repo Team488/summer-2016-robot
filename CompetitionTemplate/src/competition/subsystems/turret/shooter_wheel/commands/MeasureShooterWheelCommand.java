@@ -29,8 +29,10 @@ public class MeasureShooterWheelCommand extends BaseCommand {
 
     @Override
     public void initialize() {
-        minRecordedWheelSpeed.set(999999999999.0);
-        maxRecordedWheelSpeed.set(0);
+        double currentSpeed = shooterSubsystem.getSpeed();
+        
+        minRecordedWheelSpeed.set(currentSpeed);
+        maxRecordedWheelSpeed.set(currentSpeed);
         diffRecordedWheelSpeed.set(0);
     }
 
