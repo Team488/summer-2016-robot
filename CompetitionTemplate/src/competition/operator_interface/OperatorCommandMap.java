@@ -6,6 +6,8 @@ import com.google.inject.Singleton;
 import competition.subsystems.collector.commands.IntakeCollectorCommand;
 import competition.subsystems.collector.commands.EjectCollectorCommand;
 import competition.subsystems.feeder.commands.RaiseFeederCommand;
+import competition.subsystems.hood.commands.ExtendHoodCommand;
+import competition.subsystems.hood.commands.RetractHoodCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StartShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
 
@@ -17,6 +19,12 @@ public class OperatorCommandMap {
     public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand intakeCommand, EjectCollectorCommand ejectCommand){
         oi.leftButtons.getifAvailable(1).whileHeld(intakeCommand);
         oi.leftButtons.getifAvailable(3).whileHeld(ejectCommand);
+    }
+    
+    @Inject
+    public void setupHoodCommands(OperatorInterface oi, ExtendHoodCommand extendCommand, RetractHoodCommand retractCommand){
+        oi.leftButtons.getifAvailable(2).whileHeld(extendCommand);
+        oi.leftButtons.getifAvailable(4).whileHeld(retractCommand);
     }
     
     @Inject

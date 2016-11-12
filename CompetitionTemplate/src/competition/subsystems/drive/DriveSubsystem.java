@@ -5,11 +5,13 @@ import org.apache.log4j.Logger;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import xbot.common.command.BaseSubsystem;
 import xbot.common.controls.actuators.XCANTalon;
 import xbot.common.injection.wpi_factories.WPIFactory;
+import xbot.common.math.MathUtils;
 import xbot.common.properties.DoubleProperty;
 import xbot.common.properties.XPropertyManager;
 
@@ -91,16 +93,36 @@ public class DriveSubsystem extends BaseSubsystem {
         motor.setD(d.get());
         motor.setF(f.get());
     }
+    
+    public double convertPowerToVelocityTarget(double power) {
+        double maxTicksPerTenMs = maxSpeedProperty.get() * encoderCodesProperty.get() / 100;
+        return power * maxTicksPerTenMs;
+    }
+    
+    private void ensureModeForTalon(XCANTalon talon, TalonControlMode mode) {
+        if (talon.getControlMode() != mode) {
+            talon.setControlMode(mode);
+        }
+    }
+    
+    private void ensureSpeedModeForDrive() {
+        ensureModeForTalon(leftDrive, TalonControlMode.Speed);
+        ensureModeForTalon(rightDrive, TalonControlMode.Speed);
+    }
 
-    public void tankDrive(double leftPower, double rightPower) {
+    public void tankDriveVelocityPid(double leftPower, double rightPower) {
         // TODO: Move parameter updates to something more consistent
+        ensureSpeedModeForDrive();
+        
+        // Coerce powers into appropriate limits
+        leftPower = MathUtils.constrainDoubleToRobotScale(leftPower);
+        rightPower = MathUtils.constrainDoubleToRobotScale(rightPower);
         
         updateMotorConfig(leftDrive);
         updateMotorConfig(rightDrive);
 
-        double maxTicksPerTenMs = maxSpeedProperty.get() * encoderCodesProperty.get() / 100;
-        leftDrive.set(leftPower * maxTicksPerTenMs);
-        rightDrive.set(rightPower * maxTicksPerTenMs);
+        leftDrive.set(convertPowerToVelocityTarget(leftPower));
+        rightDrive.set(convertPowerToVelocityTarget(rightPower));
 
         //leftDrive.set(leftPower);
         //rightDrive.set(rightPower);

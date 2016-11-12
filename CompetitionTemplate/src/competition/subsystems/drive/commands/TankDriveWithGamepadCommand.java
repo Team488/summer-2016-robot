@@ -27,10 +27,10 @@ public class TankDriveWithGamepadCommand extends BaseCommand {
     public void execute() {
         // TODO: replace this with proper logic
         if(!oi.leftJoystick.getButton(8)) {
-            driveSubsystem.tankDrive(oi.leftJoystick.getVector().y, oi.leftJoystick.getRawAxis(5));
+            driveSubsystem.tankDriveVelocityPid(oi.leftJoystick.getVector().y, oi.leftJoystick.getRawAxis(5));
         }
         else {
-            driveSubsystem.tankDrive(0, 0);
+            driveSubsystem.tankDriveVelocityPid(0, 0);
         }
     }
 }

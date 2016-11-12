@@ -9,6 +9,8 @@ import competition.subsystems.drive.DriveSubsystem;
 import competition.subsystems.drive.commands.TankDriveWithGamepadCommand;
 import competition.subsystems.feeder.FeederSubsystem;
 import competition.subsystems.feeder.commands.LowerFeederCommand;
+import competition.subsystems.hood.HoodSubsystem;
+import competition.subsystems.hood.commands.StopHoodCommand;
 import competition.subsystems.telemetry.TelemetrySubsystem;
 import competition.subsystems.telemetry.commands.UpdateTelemetryCommand;
 import competition.subsystems.turret.shooter_wheel.ShooterWheelSubsystem;
@@ -41,11 +43,16 @@ public class SubsystemDefaultCommandMap {
     
     @Inject
     public void setupShooterWheelSubsystem(ShooterWheelSubsystem shooterSubsystem, ControlShooterWheelWithGamepadCommand command) {
-        shooterSubsystem.setDefaultCommand(command);
+        //shooterSubsystem.setDefaultCommand(command);
     }
     
     @Inject
     public void setupShooterWheelSubsystem(TurretRotationSubsystem turretRotSubsystem, RotateTurretWithGamepadCommand command) {
         turretRotSubsystem.setDefaultCommand(command);
+    }
+    
+    @Inject 
+    public void setupHoodSubsystem(HoodSubsystem hoodSubsystem, StopHoodCommand command){
+        hoodSubsystem.setDefaultCommand(command);
     }
 }
