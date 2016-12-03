@@ -8,6 +8,7 @@ import competition.subsystems.collector.commands.EjectCollectorCommand;
 import competition.subsystems.feeder.commands.RaiseFeederCommand;
 import competition.subsystems.hood.commands.ExtendHoodCommand;
 import competition.subsystems.hood.commands.RetractHoodCommand;
+import competition.subsystems.turret.shooter_wheel.commands.MeasureShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StartShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
 
@@ -30,7 +31,8 @@ public class OperatorCommandMap {
     @Inject
     public void setupShooterWheelCommands(OperatorInterface operatorInterface, 
             StartShooterWheelCommand startShooterWheelCommand,
-            StopShooterWheelCommand stopShooterWheelCommand) {
+            StopShooterWheelCommand stopShooterWheelCommand,
+            MeasureShooterWheelCommand measureShooterWheelCommand) {
         startShooterWheelCommand.includeOnSmartDashboard();
         stopShooterWheelCommand.includeOnSmartDashboard();
     }
