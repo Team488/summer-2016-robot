@@ -32,10 +32,6 @@ public class RotateTurretWithGamepadCommand extends BaseCommand {
         double leftIntent = leftTrigger.getVector().y;
         double rightIntent = -1 * rightTrigger.getVector().y;
         
-        if(rightIntent != 0 && leftIntent != 0){
-            rotationSubsystem.setRotationPower(0);
-        } else {
-            rotationSubsystem.setRotationPower(leftIntent + rightIntent);
-        }
+        rotationSubsystem.setRotationPower(leftIntent + rightIntent);
     }
 }
