@@ -39,6 +39,7 @@ public class SubsystemDefaultCommandMap {
         subsystem.setDefaultCommand(command);
     }
     
+    @Inject
     public void setupDriveSubsystem(DriveSubsystem driveSubsystem, TankDriveWithGamepadCommand command) {
         driveSubsystem.setDefaultCommand(command);
     }

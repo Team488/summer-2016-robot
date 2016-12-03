@@ -18,7 +18,7 @@ public class FeederSubsystem extends BaseSubsystem{
     
     @Inject
     public FeederSubsystem(WPIFactory factory, XPropertyManager propManager){
-        feederSolenoid = factory.getSolenoid(1);
+        feederSolenoid = factory.getSolenoid(0);
     }
     
     public void raise(){
