@@ -31,9 +31,6 @@ public class OperatorInterface {
         
         leftJoystick = gamepad.getLeftStick();
         rightJoystick = gamepad.getRightStick();
-        
-        //leftJoystick = factory.getJoystick(1);
-        //rightJoystick = factory.getJoystick(2);
 
         leftJoystick.setYInversion(true);
         rightJoystick.setXInversion(true);
