@@ -54,12 +54,10 @@ public class TurretRotationSubsystem extends BaseSubsystem {
     public void setRotationPower(double power) {
         turretPosition.set(rotationMotor.getEncoderPosition());
 
-        if(turretPosition.get() > turretPositivePositionLimit.get()){
-            setRotationPower(0);
-        }
-        
-        if(turretPosition.get() < turretNegativePositionLimit.get()){
-            setRotationPower(0);
+        if(turretPosition.get() > turretPositivePositionLimit.get()
+                || turretPosition.get() < turretNegativePositionLimit.get()) {
+            rotationMotor.set(0);
+            return;
         }
         
         rotationMotor.set(power);
