@@ -44,12 +44,7 @@ public class SubsystemDefaultCommandMap {
     }
     
     @Inject
-    public void setupShooterWheelSubsystem(ShooterWheelSubsystem shooterSubsystem, ControlShooterWheelWithGamepadCommand command) {
-        //shooterSubsystem.setDefaultCommand(command);
-    }
-    
-    @Inject
-    public void setupShooterWheelSubsystem(TurretRotationSubsystem turretRotSubsystem, RotateTurretWithGamepadCommand command) {
+    public void setupTurretSubsystem(TurretRotationSubsystem turretRotSubsystem, RotateTurretWithGamepadCommand command) {
         turretRotSubsystem.setDefaultCommand(command);
     }
     
@@ -59,7 +54,7 @@ public class SubsystemDefaultCommandMap {
     }
     
     @Inject
-    public void setupShooterWheelCommands(HoodSubsystem hoodSubsystem, StopShooterWheelCommand command) {
+    public void setupShooterWheelCommands(ShooterWheelSubsystem hoodSubsystem, StopShooterWheelCommand command) {
         hoodSubsystem.setDefaultCommand(command);
     }
     

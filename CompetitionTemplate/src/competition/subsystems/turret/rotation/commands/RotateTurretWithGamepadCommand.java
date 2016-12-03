@@ -10,14 +10,14 @@ import xbot.common.controls.sensors.XJoystick;
 public class RotateTurretWithGamepadCommand extends BaseCommand {
 
     final TurretRotationSubsystem rotationSubsystem;
-    final OperatorInterface oi;
     
-    final XJoystick leftTrigger = null;
-    final XJoystick rightTrigger = null;
+    final XJoystick leftTrigger;
+    final XJoystick rightTrigger;
 
     @Inject
     public RotateTurretWithGamepadCommand(OperatorInterface oi, TurretRotationSubsystem rotationSubsystem) {
-        this.oi = oi;
+        this.leftTrigger = oi.gamepad.getLeftTrigger();
+        this.rightTrigger = oi.gamepad.getRightTrigger();
         this.rotationSubsystem = rotationSubsystem;
         this.requires(this.rotationSubsystem);
     }

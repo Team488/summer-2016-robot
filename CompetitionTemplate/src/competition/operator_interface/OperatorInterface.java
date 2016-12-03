@@ -40,5 +40,7 @@ public class OperatorInterface {
 
         leftButtons = new JoystickButtonManager(8, factory, assertionManager, leftJoystick);
         rightButtons = new JoystickButtonManager(8, factory, assertionManager, rightJoystick);
+        dpadButtons = new JoystickButtonManager(8, factory, assertionManager, gamepad.getDpad());
+        
     }
 }
