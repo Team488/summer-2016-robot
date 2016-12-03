@@ -3,6 +3,7 @@ package competition.subsystems;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import competition.operator_interface.OperatorInterface;
 import competition.subsystems.collector.CollectorSubsystem;
 import competition.subsystems.collector.commands.StopCollectorCommand;
 import competition.subsystems.drive.DriveSubsystem;
@@ -17,6 +18,7 @@ import competition.subsystems.turret.shooter_wheel.ShooterWheelSubsystem;
 import competition.subsystems.turret.rotation.TurretRotationSubsystem;
 import competition.subsystems.turret.rotation.commands.RotateTurretWithGamepadCommand;
 import competition.subsystems.turret.shooter_wheel.commands.ControlShooterWheelWithGamepadCommand;
+import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
 
 @Singleton
 public class SubsystemDefaultCommandMap {
@@ -55,4 +57,10 @@ public class SubsystemDefaultCommandMap {
     public void setupHoodSubsystem(HoodSubsystem hoodSubsystem, StopHoodCommand command){
         hoodSubsystem.setDefaultCommand(command);
     }
+    
+    @Inject
+    public void setupShooterWheelCommands(HoodSubsystem hoodSubsystem, StopShooterWheelCommand command) {
+        hoodSubsystem.setDefaultCommand(command);
+    }
+    
 }

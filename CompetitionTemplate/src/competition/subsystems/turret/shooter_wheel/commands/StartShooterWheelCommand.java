@@ -28,9 +28,4 @@ public class StartShooterWheelCommand extends BaseCommand {
     public void execute() {
         
     }
-    
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
 }
