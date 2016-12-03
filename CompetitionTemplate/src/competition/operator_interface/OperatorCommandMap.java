@@ -11,21 +11,21 @@ import competition.subsystems.hood.commands.RetractHoodCommand;
 import competition.subsystems.turret.shooter_wheel.commands.MeasureShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StartShooterWheelCommand;
 import competition.subsystems.turret.shooter_wheel.commands.StopShooterWheelCommand;
+import xbot.common.controls.sensors.wpi_adapters.GamepadJoystickWpiAdapter;
 
 @Singleton
 public class OperatorCommandMap {
     // For mapping operator interface buttons to commands
     
     @Inject
-    public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand intakeCommand, EjectCollectorCommand ejectCommand){
-        oi.leftButtons.getifAvailable(1).whileHeld(intakeCommand);
-        oi.leftButtons.getifAvailable(3).whileHeld(ejectCommand);
+    public void setupCollectorCommands(OperatorInterface oi, IntakeCollectorCommand intakeCommand){
+        oi.leftButtons.getifAvailable(5).whileHeld(intakeCommand);
     }
     
     @Inject
     public void setupHoodCommands(OperatorInterface oi, ExtendHoodCommand extendCommand, RetractHoodCommand retractCommand){
-        oi.leftButtons.getifAvailable(2).whileHeld(extendCommand);
-        oi.leftButtons.getifAvailable(4).whileHeld(retractCommand);
+        oi.dpadButtons.getifAvailable(GamepadJoystickWpiAdapter.DPadDown).whileHeld(extendCommand);
+        oi.dpadButtons.getifAvailable(GamepadJoystickWpiAdapter.DPadUp).whileHeld(retractCommand);
     }
     
     @Inject
@@ -34,12 +34,11 @@ public class OperatorCommandMap {
             StopShooterWheelCommand stopShooterWheelCommand,
             MeasureShooterWheelCommand measureShooterWheelCommand) {
         startShooterWheelCommand.includeOnSmartDashboard();
-        stopShooterWheelCommand.includeOnSmartDashboard();
+        operatorInterface.leftButtons.getifAvailable(1).whileHeld(startShooterWheelCommand);
     }
     
     @Inject
-    public void setupFeederCommands(OperatorInterface operatorInterface, 
-            RaiseFeederCommand raiseFeederCommand) {
+    public void setupFeederCommands(OperatorInterface operatorInterface, RaiseFeederCommand raiseFeederCommand) {
         raiseFeederCommand.includeOnSmartDashboard();
         operatorInterface.leftButtons.getifAvailable(6).whileHeld(raiseFeederCommand);
     }

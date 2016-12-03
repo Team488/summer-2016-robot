@@ -19,3 +19,4 @@ sysProps.xml
 #Eclipse files
 .metadata/
 RemoteSystemsTempFiles/
+.recommenders/
